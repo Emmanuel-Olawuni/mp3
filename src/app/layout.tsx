@@ -4,6 +4,7 @@ import "./globals.css";
 
 // import{  NextTopLoader } from 'nextjs-toploader'
 import { NextUIProvider } from "@nextui-org/react";
+import Header from "@/components/personal/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,9 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        <body className={inter.className}>
       <NextUIProvider>
-        <body className={inter.className}>{children}</body>
+          <Header />
+          {children}
       </NextUIProvider>
+        </body>
     </html>
   );
 }
