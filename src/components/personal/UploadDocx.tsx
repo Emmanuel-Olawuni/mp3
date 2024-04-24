@@ -2,12 +2,10 @@
 import { formPdfInput } from "@/utils/types";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
-
+import axios from "axios"
 import { Button } from "@/components/ui/button";
-
 import { Input } from "@/components/ui/input";
-import { FormMessage } from "../ui/form";
+import { convertToMp3 } from "@/utils/function";
 
 const UploadDocx: React.FC = () => {
   const [loading, isLoading] = useState<boolean>(false);
@@ -42,7 +40,9 @@ const UploadDocx: React.FC = () => {
     setCurrentText(false);
   };
 
-  const goNextHandler = () => {};
+  const goNextHandler = () => {
+    convertToMp3(currrentText as string , 'texting.mp3')
+  };
   return (
     <>
       {currrentText === false && (
@@ -52,13 +52,22 @@ const UploadDocx: React.FC = () => {
               {...register("name", { required: true, minLength: 2 })}
               aria-invalid={errors.name ? true : false}
             />
+            {errors.name?.type === "required" && (
+              <p role="alert">This field is required</p>
+            )}
+            {errors.name?.type === "minLength" && (
+              <p role="alert">Minimum character is 2</p>
+            )}
             <Input
               {...register("file", { required: true })}
               aria-invalid={errors.file ? true : false}
               name="file"
               type="file"
             />
-            <Button type="submit">Submit</Button>
+            {errors.file?.type === "required" && (
+              <p role="alert">This field is required</p>
+            )}
+            <Button type="submit">Convert</Button>
           </form>
         </div>
       )}

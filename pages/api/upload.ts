@@ -50,7 +50,7 @@ export default async function handler(
               });
             }
             console.log("Document Saved");
-console.log(text);
+            console.log(text);
 
             res.status(200).json({
               text,
