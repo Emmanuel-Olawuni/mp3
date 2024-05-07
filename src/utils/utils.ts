@@ -1,5 +1,5 @@
 import { MdAccountBox, MdConveyorBelt, MdDashboard, MdExtension, MdOutlineAccountCircle, MdOutlineCurrencyExchange, MdOutlineDashboard, MdOutlineExtension, MdOutlineSettings, MdOutlineSwapCalls, MdRestoreFromTrash, MdSettings } from "react-icons/md";
-import { MenuTypes } from "./types";
+import { MenuTypes, pricing } from "./types";
 
 export const sidebarElements: MenuTypes[] = [
   {
@@ -71,4 +71,14 @@ export const MenuLinks = [
     link: '/faq'
 
   },
+]
+
+export const  pricingData: pricing[] = [
+  {
+    id: 1,
+    desc: '',
+    title: 'Free',
+    features: ['' , '' ,'' , ''],
+    amount: 200
+  }
 ]

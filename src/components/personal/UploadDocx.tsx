@@ -42,15 +42,17 @@ const UploadDocx: React.FC = () => {
 
   const goNextHandler = async () => {
     try {
-      const response = await axios.post("/api/text", { currrentText });
-
+      const encodedText = encodeURIComponent(currrentText);
+      const response = await axios.post("/api/text", { text: encodedText });
+    
       if (response.status === 200) {
-        console.log(" converted successfully");
+        console.log("Converted successfully");
       } else {
-        console.log("  unavle converted successfully");
+        console.log("Unable to convert successfully");
       }
     } catch (error) {
-      console.log("woo converted successfully", error);
+      console.error("Error:", error);
+      console.log("Failed to convert text to MP3");
     }
   };
   return (

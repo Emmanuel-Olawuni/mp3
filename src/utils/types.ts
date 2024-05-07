@@ -10,3 +10,10 @@ export type formPdfInput = {
     name: string
     file: FileList
 }
+export type pricing = {
+    id: number,
+    title: string,
+     amount: number,
+     features: Array<string>
+     desc: string;
+}
