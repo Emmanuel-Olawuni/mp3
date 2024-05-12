@@ -16,4 +16,10 @@ export type pricing = {
      amount: number,
      features: Array<string>
      desc: string;
+     tag: string
+}
+export type activitesCardType ={
+    id: number
+    title: string
+    desc: string
 }

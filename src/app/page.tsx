@@ -1,4 +1,6 @@
+import { CardData } from "@/components/personal/Card";
 import Hero from "@/components/personal/Hero";
+import Newsletter from "@/components/personal/Newsletter";
 import PricingTab from "@/components/personal/Pricing";
 import Image from "next/image";
 
@@ -9,6 +11,8 @@ export default function Home() {
 
       <Hero />
       <PricingTab />
+      {/* <CardData /> */}
+      <Newsletter />
     </main>
   );
 }

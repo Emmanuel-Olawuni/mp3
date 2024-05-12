@@ -3,10 +3,10 @@ import React from 'react'
 
 const page = () => {
   return (
-        <div>
+        <main className='   w-full '>
             <h4> Let's Upload a docx today</h4>
             <UploadDocx />
-        </div>
+        </main>
   )
 }
 
