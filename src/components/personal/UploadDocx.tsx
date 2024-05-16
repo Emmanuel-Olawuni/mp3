@@ -43,7 +43,7 @@ const UploadDocx: React.FC = () => {
   const goNextHandler = async () => {
     try {
       const encodedText = encodeURIComponent(currrentText);
-      const response = await axios.post("/api/text", { text: encodedText });
+      const response = await axios.post("/api/ats", { text: encodedText });
     
       if (response.status === 200) {
         console.log("Converted successfully");

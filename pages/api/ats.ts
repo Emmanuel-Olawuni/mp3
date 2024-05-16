@@ -1,22 +1,55 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
-var txtomp3 = require("text-to-mp3");
+import { NextApiRequest, NextApiResponse } from "next";
+import fs from "fs";
+import path from "path";
+import axios from "axios";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { text } = req.body; // assuming text is sent in the request body
-    const directoryPath = "/path/to/your/directory/";
-    
-    const binaryStream = await txtomp3.getMp3(text);
-    
-    const filePath = path.join(directoryPath, "FileName.mp3");
-    const file = fs.createWriteStream(filePath);
-    binaryStream.pipe(file);
-    
-    res.status(200).json({ success: true, message: "MP3 file saved successfully." });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ success: false, error: "Failed to save MP3 file." });
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === "POST") {
+    const { text } = req.body;
+    const apiKey = process.env.TALKIFY_API_KEY;
+
+    if (!text) {
+      return res.status(400).json({ error: "Text is required" });
+    }
+const data = text;
+    try {
+      const response = await axios.post(
+        `https://talkify.net/api/speech/v1?key=${apiKey}`,
+        {
+          text: btoa(text),
+          voice: "David",
+          outputFormat: "mp3",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          responseType: "arraybuffer",
+        }
+      );
+      console.log(response);
+
+      const filePath = path.join(
+        process.cwd(),
+        "public",
+        "audio",
+        "emmanuel.mp3"
+      );
+      fs.writeFileSync(filePath, response.data);
+
+      res.status(200).json({ url: `/audio/emmanuel.mp3` });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios Error:", error.message);
+      } else {
+        console.error("Unexpected Error:", error);
+      }
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  } else {
+    res.status(405).json({ error: "Method Not Allowed" });
   }
 }

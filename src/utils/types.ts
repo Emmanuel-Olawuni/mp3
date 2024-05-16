@@ -23,3 +23,7 @@ export type activitesCardType ={
     title: string
     desc: string
 }
+export type loginFormType = {
+    email: string;
+    password: string
+}
