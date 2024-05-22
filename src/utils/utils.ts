@@ -124,5 +124,57 @@ export const activitesCard: activitesCardType[] = [
   },
 ];
 
+// why us , newsletter , footer
 
-// why us , newsletter , footer 
+export const voicesText = [
+  {
+    id: 1,
+    name: "Hedda",
+    title: "German, de-DE",
+  },
+  {
+    id: 2,
+    name: "Hazel",
+    title: "English, en-GB",
+  },
+  {
+    id: 3,
+    name: "David",
+    title: "English, en-US",
+  },
+  {
+    id: 4,
+    name: "Zira",
+    title: "English, en-US",
+  },
+  {
+    id: 5,
+    name: "Helena",
+    title: "Spanish, es-ES",
+  },
+  {
+    id: 6,
+    name: "Hilda",
+    title: "Spanish, es-MX",
+  },
+  {
+    id: 7,
+    name: "Hortense",
+    title: "French, fr-FR",
+  },
+  {
+    id: 8,
+    name: "Lucia",
+    title: "Italian, it-IT",
+  },
+  {
+    id: 9,
+    name: "Haruka",
+    title: "Japanese, ja-JP",
+  },
+  {
+    id: 10,
+    name: "Heami",
+    title: "Korean, ko-KR",
+  },
+];

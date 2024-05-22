@@ -42,9 +42,8 @@ const UploadDocx: React.FC = () => {
 
   const goNextHandler = async () => {
     try {
-      const encodedText = encodeURIComponent(currrentText);
-      const response = await axios.post("/api/ats", { text: encodedText });
-    
+      const response = await axios.post("/api/ats", { text: currrentText });
+
       if (response.status === 200) {
         console.log("Converted successfully");
       } else {
@@ -107,12 +106,20 @@ const UploadDocx: React.FC = () => {
       {currrentText !== false && (
         <div>
           <div>
-            <p>{currrentText}</p>
-          </div>
+            <form action="">
+              <Input name="textname" type="text" />
+              <Input type="text" name="text" value={currrentText as string} />
 
-          <div>
-            <Button onClick={gobackHandler}>Go Back</Button>
-            <Button onClick={goNextHandler}>Next</Button>
+              <div>
+                <Button onClick={gobackHandler} type="button">
+                  Go Back
+                </Button>
+                <Button onClick={goNextHandler} type="submit">
+                  Next
+                </Button>
+              </div>
+            </form>
+            <p>{currrentText}</p>
           </div>
         </div>
       )}

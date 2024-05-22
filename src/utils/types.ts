@@ -27,3 +27,10 @@ export type loginFormType = {
     email: string;
     password: string
 }
+export type conversionType = {
+    name: string;
+    text: string;
+    speed: number;
+    voice: string;
+    pitch: number;
+}

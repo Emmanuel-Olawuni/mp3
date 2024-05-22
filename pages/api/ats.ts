@@ -14,12 +14,13 @@ export default async function handler(
     if (!text) {
       return res.status(400).json({ error: "Text is required" });
     }
-const data = text;
+    console.log('the text is: ', text);
+
     try {
       const response = await axios.post(
         `https://talkify.net/api/speech/v1?key=${apiKey}`,
         {
-          text: btoa(text),
+          text: text,
           voice: "David",
           outputFormat: "mp3",
         },
@@ -30,17 +31,18 @@ const data = text;
           responseType: "arraybuffer",
         }
       );
+      
       console.log(response);
 
       const filePath = path.join(
         process.cwd(),
         "public",
         "audio",
-        "emmanuel.mp3"
+        "today.mp3"
       );
       fs.writeFileSync(filePath, response.data);
 
-      res.status(200).json({ url: `/audio/emmanuel.mp3` });
+      res.status(200).json({ url: `/audio/today.mp3` });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Axios Error:", error.message);
