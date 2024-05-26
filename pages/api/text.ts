@@ -14,7 +14,7 @@ export default async function handler(
     const apiKey = process.env.TALKIFY_API_KEY; // Use environment variable for API key
 
     if (!text) {
-      return res.status(400).json({ error: "Text is required" });
+      return res.status(400).json({ error: "Txt is required" });
     }
 
     try {
