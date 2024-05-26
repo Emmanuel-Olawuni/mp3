@@ -6,9 +6,9 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "../ui/label";
+import Conversion from "./Conversion";
 
 const UploadDocx: React.FC = () => {
-  const [loading, isLoading] = useState<boolean>(false);
   const [currrentText, setCurrentText] = useState<string | boolean>(false);
   const {
     register,
@@ -36,28 +36,13 @@ const UploadDocx: React.FC = () => {
       //   error uploading the file
     }
   };
-  const gobackHandler = () => {
-    setCurrentText(false);
-  };
 
-  const goNextHandler = async () => {
-    try {
-      const response = await axios.post("/api/ats", { text: currrentText });
-
-      if (response.status === 200) {
-        console.log("Converted successfully");
-      } else {
-        console.log("Unable to convert successfully");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      console.log("Failed to convert text to MP3");
-    }
-  };
   return (
     <>
       {currrentText === false && (
         <div>
+          <h4> Let's Upload a docx today</h4>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <Label htmlFor="name" className=" text-md font-bold ">
@@ -104,24 +89,10 @@ const UploadDocx: React.FC = () => {
       )}
 
       {currrentText !== false && (
-        <div>
-          <div>
-            <form action="">
-              <Input name="textname" type="text" />
-              <Input type="text" name="text" value={currrentText as string} />
-
-              <div>
-                <Button onClick={gobackHandler} type="button">
-                  Go Back
-                </Button>
-                <Button onClick={goNextHandler} type="submit">
-                  Next
-                </Button>
-              </div>
-            </form>
-            <p>{currrentText}</p>
-          </div>
-        </div>
+        <Conversion
+          text={currrentText}
+          setCurrentTextFunction={setCurrentText}
+        />
       )}
     </>
   );

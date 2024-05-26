@@ -49,8 +49,6 @@ export default async function handler(
                 error: "Unable to save the uploaded file",
               });
             }
-            console.log("Document Saved");
-            console.log(text);
 
             res.status(200).json({
               text,

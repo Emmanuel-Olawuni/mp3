@@ -28,7 +28,7 @@ export type loginFormType = {
     password: string
 }
 export type conversionType = {
-    name: string;
+    filename: string;
     text: string;
     speed: number;
     voice: string;
