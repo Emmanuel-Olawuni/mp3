@@ -26,6 +26,8 @@ import Link from "next/link";
 import { voicesText } from "@/utils/utils";
 import { Textarea } from "../ui/textarea";
 import { removeSpacesKeepNewlines } from "@/utils/function";
+import DownloadButton from "./DownloadButton";
+import { toast } from "react-toastify";
 
 const Conversion = ({
   text,
@@ -36,13 +38,14 @@ const Conversion = ({
     React.SetStateAction<string | boolean>
   >;
 }) => {
+  const [download, setDownload] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
+  const [path , setPath] = useState<string>('')
   const strippedText = removeSpacesKeepNewlines(text as string);
 
   const gobackHandler = () => {
     setCurrentTextFunction(false);
   };
-
 
   const formSchema = z.object({
     filename: z
@@ -66,7 +69,6 @@ const Conversion = ({
       .min(2, {
         message: "Username must be at least 2 characters",
       }),
-
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -79,12 +81,21 @@ const Conversion = ({
     },
   });
   async function onsubmit(values: z.infer<typeof formSchema>) {
-   try {
-    const response = await axios.post('/api/text' , values , )
-    
-   } catch (error) {
-    
-   }
+    isLoading(true);
+    try {
+      const response = await axios.post("/api/text", values);
+      if (response.status === 200) {
+        toast.success("Enabling download button!");
+        setPath(response.data.path)
+        setDownload(true);
+      } else {
+        toast.error("Unable to convert. Try again later.");
+        isLoading(false);
+      }
+    } catch (error) {
+      toast.error("Unable to convert. Try again later.");
+      isLoading(false);
+    }
   }
 
   const goNextHandler = async () => {};
@@ -131,7 +142,7 @@ const Conversion = ({
                   <FormControl>
                     <Textarea
                       {...field}
-                      value={strippedText}
+                      defaultValue={strippedText}
                       cols={20}
                       rows={15}
                       id="text"
@@ -208,13 +219,19 @@ const Conversion = ({
               <Button onClick={gobackHandler} type="button">
                 Go Back
               </Button>
-              <Button
-                onClick={goNextHandler}
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-primary px-3 hover:text-primary hover:border-1 hover:border-primary py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Convert and Download
-              </Button>
+              {download ? (
+                <DownloadButton path={path} />
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={loading ? true : false}
+                  className={` ${
+                    loading ? " opacity-60" : "opacity-100"
+                  } flex w-full justify-center rounded-md bg-primary px-3 mt-4 hover:text-primary hover:border-1 hover:border-primary py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                >
+                  Convert and Download
+                </Button>
+              )}
             </div>
           </form>
         </Form>

@@ -7,9 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "../ui/label";
 import Conversion from "./Conversion";
+import { Spinner } from "@nextui-org/react";
+import { toast } from "react-toastify";
 
 const UploadDocx: React.FC = () => {
   const [currrentText, setCurrentText] = useState<string | boolean>(false);
+  const [loading, isLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -17,6 +20,7 @@ const UploadDocx: React.FC = () => {
   } = useForm<formPdfInput>();
 
   const onSubmit: SubmitHandler<formPdfInput> = async (data) => {
+    isLoading(true);
     const formData = new FormData();
     formData.append("file", data.file[0]);
     try {
@@ -27,13 +31,16 @@ const UploadDocx: React.FC = () => {
       });
 
       if (response.data.text !== "") {
+        toast.success("Text Extracted Successfully!.");
         setCurrentText(response.data.text);
+        isLoading(false);
       } else {
-        // unable to convert your file
+        toast.error("Unable to extract text");
+        isLoading(false)
       }
     } catch (error) {
-      console.log(error);
-      //   error uploading the file
+      toast.error("Unable to extract text");
+      isLoading(false);
     }
   };
 
@@ -41,31 +48,7 @@ const UploadDocx: React.FC = () => {
     <>
       {currrentText === false && (
         <div>
-          <h4> Let's Upload a docx today</h4>
-
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div>
-              <Label htmlFor="name" className=" text-md font-bold ">
-                Name
-              </Label>
-              <Input
-                {...register("name", { required: true, minLength: 2 })}
-                aria-invalid={errors.name ? true : false}
-                placeholder="e.g My Notes"
-                id="name"
-              />
-            </div>
-            {errors.name?.type === "required" && (
-              <p role="alert" className=" text-destructive">
-                This field is required
-              </p>
-            )}
-            {errors.name?.type === "minLength" && (
-              <p role="alert" className=" text-destructive">
-                Minimum character is 2
-              </p>
-            )}
-
             <div>
               <Label htmlFor="upload" className=" text-md font-bold ">
                 Upload a file
@@ -83,7 +66,11 @@ const UploadDocx: React.FC = () => {
                 This field is required
               </p>
             )}
-            <Button type="submit">Convert</Button>
+            {loading ? (
+              <Spinner label="Please wait .." />
+            ) : (
+              <Button type="submit">Convert</Button>
+            )}
           </form>
         </div>
       )}

@@ -7,7 +7,6 @@ export type MenuTypes = {
     icon : React.ElementType
 }
 export type formPdfInput = {
-    name: string
     file: FileList
 }
 export type pricing = {

@@ -1,5 +1,3 @@
-// pages/api/text-to-speech.ts
-
 import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
@@ -10,27 +8,27 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { text } = req.body;
-    const apiKey = process.env.TALKIFY_API_KEY; // Use environment variable for API key
+    const { text, filename, voice } = req.body;
+    const apiKey = process.env.TALKIFY_API_KEY;
 
     if (!text) {
-      return res.status(400).json({ error: "Txt is required" });
+      return res.status(400).json({ error: "Text is required" });
     }
+    console.log("the text is: ", text);
 
     try {
       const response = await axios.post(
         `https://talkify.net/api/speech/v1?key=${apiKey}`,
         {
-          text: "Ade is a goat",
-          voice: "David", // Specify the voice
-          outputFormat: "mp3", // Specify the desired output format
+          text: text,
+          voice: voice,
+          outputFormat: "mp3",
         },
         {
           headers: {
-            // 'Authorization': `Bearer ${apiKey}`,
             "Content-Type": "application/json",
           },
-          // responseType: 'stream', // Specify the response type as stream
+          responseType: "arraybuffer",
         }
       );
 
@@ -38,20 +36,11 @@ export default async function handler(
         process.cwd(),
         "public",
         "audio",
-        "sample.mp3"
-      ); // Adjust the file path as needed
-      const writer = fs.createWriteStream(filePath);
+        `${filename}.npm`
+      );
+      fs.writeFileSync(filePath, response.data);
 
-      response.data.pipe(writer);
-
-      writer.on("finish", () => {
-        res.status(200).json({ url: `/audio/sample.mp3` }); // Return the relative path to the file
-      });
-
-      writer.on("error", (err) => {
-        console.error("File Write Error:", err);
-        res.status(500).json({ error: "Internal Server Error" });
-      });
+      res.status(200).json({ path: `${filename}` });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Axios Error:", error.message);
