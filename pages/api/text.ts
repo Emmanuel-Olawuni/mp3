@@ -40,7 +40,7 @@ export default async function handler(
       );
       fs.writeFileSync(filePath, response.data);
 
-      res.status(200).json({ path: `${filename}` });
+      res.status(200).json({ path: `${filePath}` });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("Axios Error:", error.message);

@@ -40,7 +40,7 @@ const Conversion = ({
 }) => {
   const [download, setDownload] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
-  const [path , setPath] = useState<string>('')
+  const [path, setPath] = useState<string>("");
   const strippedText = removeSpacesKeepNewlines(text as string);
 
   const gobackHandler = () => {
@@ -50,31 +50,31 @@ const Conversion = ({
   const formSchema = z.object({
     filename: z
       .string({
-        invalid_type_error: "Invalid Email format",
+        invalid_type_error: "Invalid text format",
       })
       .min(2, {
         message: "Username must be at least 2 characters",
       }),
     text: z
       .string({
-        invalid_type_error: "Invalid Email format",
+        invalid_type_error: "Invalid text format",
       })
-      .min(2, {
-        message: "Username must be at least 2 characters",
+      .min(20, {
+        message: "Username must be at least 20 characters",
       }),
     voice: z
       .string({
-        invalid_type_error: "Invalid Email format",
+        invalid_type_error: "Invalid text format",
       })
       .min(2, {
-        message: "Username must be at least 2 characters",
+        message: "Please select a voice",
       }),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       filename: "",
-      text: "",
+      text: strippedText,
       // speed: 1,
       voice: "",
       // pitch: "",
@@ -86,7 +86,9 @@ const Conversion = ({
       const response = await axios.post("/api/text", values);
       if (response.status === 200) {
         toast.success("Enabling download button!");
-        setPath(response.data.path)
+        console.log(" Audio response", response);
+
+        setPath(response.data.filePath);
         setDownload(true);
       } else {
         toast.error("Unable to convert. Try again later.");
