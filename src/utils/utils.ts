@@ -51,27 +51,27 @@ export const MenuLinks = [
   {
     id: 1,
     name: "features",
-    link: "/features",
+    link: "#",
   },
   {
     id: 2,
     name: "About",
-    link: "/about",
+    link: "#",
   },
   {
     id: 3,
     name: "Contact",
-    link: "/contact",
+    link: "#",
   },
   {
     id: 4,
     name: "Careers",
-    link: "/careers",
+    link: "#",
   },
   {
     id: 5,
     name: "FAQ",
-    link: "/faq",
+    link: "#",
   },
 ];
 

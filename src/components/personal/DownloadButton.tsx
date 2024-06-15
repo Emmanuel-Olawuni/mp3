@@ -1,16 +1,18 @@
-"use client";
-import React, { useState } from "react";
-import { Button, Spinner } from "@nextui-org/react";
+import React from "react";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 
 const DownloadButton = ({ path }: { path: string }) => {
+  console.log(path);
   return (
     <>
-      <Button className="">
-        <Link download href={path}>
-          Download Mp3
-        </Link>
-      </Button>
+      <Link
+        download
+        href={path}
+        className=" w-full rounded-md text-white flex justify-center px-4 py-2 bg-primary shadow-primary shadow-md  text-primary font-semibold text-medium"
+      >
+        Download Mp3
+      </Link>
     </>
   );
 };

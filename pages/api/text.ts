@@ -15,7 +15,7 @@ export default async function handler(
       return res.status(400).json({ error: "Text is required" });
     }
     console.log("the text is: ", text);
-
+const filenamewithoutSpaces = filename.replace(/\s+/g, '')
     try {
       const response = await axios.post(
         `https://talkify.net/api/speech/v1?key=${apiKey}`,
@@ -36,7 +36,7 @@ export default async function handler(
         process.cwd(),
         "public",
         "audio",
-        `${filename}.npm`
+        `${filenamewithoutSpaces}.mp3`
       );
       fs.writeFileSync(filePath, response.data);
 

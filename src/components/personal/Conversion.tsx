@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Slider } from "@nextui-org/react";
+import { Slider, Spinner } from "@nextui-org/react";
 import {
   Form,
   FormControl,
@@ -88,7 +88,8 @@ const Conversion = ({
         toast.success("Enabling download button!");
         console.log(" Audio response", response);
 
-        setPath(response.data.filePath);
+        setPath(response.data.path);
+        isLoading(false);
         setDownload(true);
       } else {
         toast.error("Unable to convert. Try again later.");
@@ -100,7 +101,6 @@ const Conversion = ({
     }
   }
 
-  const goNextHandler = async () => {};
   return (
     <div>
       <div>
@@ -125,6 +125,8 @@ const Conversion = ({
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </FormControl>
+                  <FormDescription>Audio file name</FormDescription>
+
                   {/* </div> */}
                   <FormMessage />
                 </FormItem>
@@ -221,19 +223,20 @@ const Conversion = ({
               <Button onClick={gobackHandler} type="button">
                 Go Back
               </Button>
-              {download ? (
-                <DownloadButton path={path} />
+              {loading ? (
+                <Spinner
+                  label="loading mp3..."
+                  className={`flex w-full justify-center rounded-md  text-sm font-semibold leading-6`}
+                />
               ) : (
                 <Button
                   type="submit"
-                  disabled={loading ? true : false}
-                  className={` ${
-                    loading ? " opacity-60" : "opacity-100"
-                  } flex w-full justify-center rounded-md bg-primary px-3 mt-4 hover:text-primary hover:border-1 hover:border-primary py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                  className={`flex w-full justify-center rounded-md bg-primary px-3 mt-4 hover:text-primary hover:border-1 hover:border-primary py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                 >
                   Convert and Download
                 </Button>
               )}
+              {download && <DownloadButton path={path} />}
             </div>
           </form>
         </Form>

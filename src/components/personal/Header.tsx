@@ -5,9 +5,9 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Button,
 } from "@nextui-org/react";
+import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import { MenuLinks } from "@/utils/utils";
@@ -33,7 +33,7 @@ export default function Header() {
             <NavbarItem key={i}>
               <Link
                 key={x.id}
-                href={`${x.link}`}
+                href={`/${x.link}`}
                 aria-current="page"
                 color="foreground"
                 className={`${
@@ -55,11 +55,11 @@ export default function Header() {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="hidden lg:flex">
-            <Link href="/login">Login</Link>
+            {/* <Link href="/login">Login</Link> */}
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} color="primary" href="/signup" variant="solid">
-              Sign Up
+            <Button color="primary" variant="solid">
+              <Link href="/user/dashboard/create">Get Started</Link>
             </Button>
           </NavbarItem>
         </NavbarContent>

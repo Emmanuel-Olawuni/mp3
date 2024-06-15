@@ -34,8 +34,8 @@ export default function Hero() {
             Let your document dance to the beat of your ears
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button as={Link} color="primary" href="#" variant='solid'>
-              Sign Up
+            <Button as={Link} color="primary" href="/user/dashboard/create" variant='solid'>
+              Get Started
             </Button>
               <a
                 href="#"
