@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,8 +15,7 @@ export default async function handler(
     if (!text) {
       return res.status(400).json({ error: "Text is required" });
     }
-    console.log("the text is: ", text);
-const filenamewithoutSpaces = filename.replace(/\s+/g, '')
+    const filenamewithoutSpaces = filename.replace(/\s+/g, "");
     try {
       const response = await axios.post(
         `https://talkify.net/api/speech/v1?key=${apiKey}`,
@@ -43,9 +43,9 @@ const filenamewithoutSpaces = filename.replace(/\s+/g, '')
       res.status(200).json({ path: `${filePath}` });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("Axios Error:", error.message);
+        toast.error("Connection failed!");
       } else {
-        console.error("Unexpected Error:", error);
+        toast.error("Internal server error. Please try again later.");
       }
       res.status(500).json({ error: "Internal Server Error" });
     }

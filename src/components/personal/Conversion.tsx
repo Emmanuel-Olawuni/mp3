@@ -226,7 +226,9 @@ const Conversion = ({
               {loading ? (
                 <Spinner
                   label="loading mp3..."
-                  className={`flex w-full justify-center rounded-md  text-sm font-semibold leading-6`}
+                  className={` ${
+                    download ? " hidden " : " flex"
+                  }  w-full justify-center rounded-md  text-sm font-semibold leading-6`}
                 />
               ) : (
                 <Button
