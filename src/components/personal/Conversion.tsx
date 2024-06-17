@@ -40,7 +40,7 @@ const Conversion = ({
 }) => {
   const [download, setDownload] = useState<boolean>(false);
   const [loading, isLoading] = useState<boolean>(false);
-  const [path, setPath] = useState<string>("");
+  const [fileName, setPath] = useState<string>("");
   const strippedText = removeSpacesKeepNewlines(text as string);
 
   const gobackHandler = () => {
@@ -86,18 +86,19 @@ const Conversion = ({
       const response = await axios.post("/api/text", values);
       if (response.status === 200) {
         toast.success("Enabling download button!");
-        console.log(" Audio response", response);
 
-        setPath(response.data.path);
+        setPath(response.data.fileName);
         isLoading(false);
         setDownload(true);
       } else {
         toast.error("Unable to convert. Try again later.");
         isLoading(false);
+        setDownload(false);
       }
     } catch (error) {
       toast.error("Unable to convert. Try again later.");
       isLoading(false);
+      setDownload(false);
     }
   }
 
@@ -238,7 +239,7 @@ const Conversion = ({
                   Convert and Download
                 </Button>
               )}
-              {download && <DownloadButton path={path} />}
+              {download && <DownloadButton fileName={fileName} />}
             </div>
           </form>
         </Form>

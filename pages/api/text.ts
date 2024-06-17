@@ -40,7 +40,7 @@ export default async function handler(
       );
       fs.writeFileSync(filePath, response.data);
 
-      res.status(200).json({ path: `${filePath}` });
+      res.status(200).json({ path: `${filePath}`, fileName: filenamewithoutSpaces });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error("Connection failed!");

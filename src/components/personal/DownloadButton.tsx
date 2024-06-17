@@ -1,18 +1,32 @@
 import React from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import Link from "next/link";
+import useDownloader from "react-use-downloader";
+import { Progress } from "@radix-ui/react-progress";
 
-const DownloadButton = ({ path }: { path: string }) => {
-  console.log(path);
+const DownloadButton = ({ fileName }: { fileName: string }) => {
+  const { size, elapsed, download, percentage, isInProgress, cancel, error } =
+    useDownloader();
+  const fileUrl = `/audio/${fileName}.mp3`;
   return (
     <>
-      <Link
-        download
-        href={path}
-        className=" w-full rounded-md text-white flex justify-center px-4 py-2 bg-primary shadow-primary shadow-md  text-primary font-semibold text-medium"
-      >
-        Download Mp3
-      </Link>
+      <p>Download is {isInProgress ? "in progress" : "stopped"}</p>
+      <div className=" flex flex-col gap-3 items-center justify-center max-w-xl">
+        {" "}
+        {isInProgress ? (
+          <Spinner label="Downloading ..." />
+        ) : (
+          <Button
+            variant="flat"
+            color="primary"
+            onClick={() => download(fileUrl, `${fileName}.mp3`)}
+          >
+            Download Mp3
+          </Button>
+        )}
+      </div>
+      <p>Time to finish download: {elapsed}</p>
+      {error && <p>possible error {JSON.stringify(error)}</p>}
     </>
   );
 };
