@@ -10,8 +10,7 @@ const DownloadButton = ({ fileName }: { fileName: string }) => {
   const fileUrl = `/audio/${fileName}.mp3`;
   return (
     <>
-      <p>Download is {isInProgress ? "in progress" : "stopped"}</p>
-      <div className=" flex flex-col gap-3 items-center justify-center max-w-xl">
+      <div className=" flex flex-col gap-3 mt-4 p-2 items-center justify-center max-w-xl">
         {" "}
         {isInProgress ? (
           <Spinner label="Downloading ..." />
@@ -25,7 +24,6 @@ const DownloadButton = ({ fileName }: { fileName: string }) => {
           </Button>
         )}
       </div>
-      <p>Time to finish download: {elapsed}</p>
       {error && <p>possible error {JSON.stringify(error)}</p>}
     </>
   );
