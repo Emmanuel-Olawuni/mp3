@@ -1,5 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+This is a [Next.js](https://nextjs.org/) project created by with [`Olawuni Emmanuel`](https://techpad.com.ng).
+This a docx to mp3 software
 ## Getting Started
 
 First, run the development server:
