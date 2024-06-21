@@ -11,7 +11,7 @@ const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
   return (
-    <div className=" flex flex-col sm:flex-row justify-around gap-3 py-6 bg-gray-200 px-4 ">
+    <div className=" flex flex-col sm:flex-row justify-around items-center gap-3 py-6 bg-gray-200 px-4 ">
       <div className="social-link flex text-lg text-primary  gap-2">
         <LucideGithub
           href="https://github.com/Emmanuel-Olawuni"

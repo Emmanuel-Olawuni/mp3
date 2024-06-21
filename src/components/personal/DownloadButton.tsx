@@ -1,11 +1,9 @@
 import React from "react";
 import { Button, Spinner } from "@nextui-org/react";
-import Link from "next/link";
 import useDownloader from "react-use-downloader";
-import { Progress } from "@radix-ui/react-progress";
 
 const DownloadButton = ({ fileName }: { fileName: string }) => {
-  const { size, elapsed, download, percentage, isInProgress, cancel, error } =
+  const { download, isInProgress, cancel, error } =
     useDownloader();
   const fileUrl = `/audio/${fileName}.mp3`;
   return (

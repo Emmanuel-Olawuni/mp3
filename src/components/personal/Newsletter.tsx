@@ -17,7 +17,7 @@ const Newsletter = () => {
             <p className="mt-4 text-lg leading-8 text-gray-300 underline underline-offset-2">
               Stay Updated with Our Latest News and Offers !
             </p>
-            <div className="mt-6 flex max-w-md gap-x-4">
+            <div className="mt-6 flex flex-col md:flex-row max-w-md gap-x-4 gap-y-4">
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>

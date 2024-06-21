@@ -33,7 +33,7 @@ export default function Hero() {
             <p className="mt-6 text-lg leading-8 text-gray-600 underline underline-offset-4 italic">
               Let your document dance to the beat of your ears
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-6">
               <Button color="primary" variant="solid">
                 <Link href="/user/dashboard/create">Get Started</Link>
               </Button>
