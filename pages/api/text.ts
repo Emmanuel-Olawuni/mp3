@@ -10,7 +10,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const { text, filename, voice } = req.body;
-    const apiKey = process.env.TALKIFY_API_KEY;
+    const apiKey = 'b2847bc7-7470-4b21-ba9d-fbd2edce6476';
 
     if (!text) {
       return res.status(400).json({ error: "Text is required" });
