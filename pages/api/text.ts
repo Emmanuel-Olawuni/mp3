@@ -44,7 +44,7 @@ export default async function handler(
         .status(200)
         .json({ path: `${filePath}`, fileName: filenamewithoutSpaces });
     } catch (error) {
-      console.log(error)
+      console.log('Error Processing  request',error)
       if (axios.isAxiosError(error)) {
         toast.error("Connection failed!");
       } else {
