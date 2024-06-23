@@ -97,6 +97,7 @@ const Conversion = ({
         setDownload(false);
       }
     } catch (error) {
+      console.log(error)
       toast.error("Connection failed. try again later");
       isLoading(false);
       setDownload(false);
