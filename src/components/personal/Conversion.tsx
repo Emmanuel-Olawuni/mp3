@@ -51,6 +51,7 @@ const Conversion = ({
     filename: z
       .string({
         invalid_type_error: "Invalid text format",
+        required_error: "Name is required",
       })
       .min(2, {
         message: "Username must be at least 2 characters",

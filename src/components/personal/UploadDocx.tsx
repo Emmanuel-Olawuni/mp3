@@ -51,7 +51,7 @@ const UploadDocx: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <Label htmlFor="upload" className=" text-md font-bold ">
-                Upload a file
+                Upload a file. Docx or Word files only.
               </Label>
               <Input
                 {...register("file", { required: true })}
