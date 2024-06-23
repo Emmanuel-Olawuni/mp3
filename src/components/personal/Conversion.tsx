@@ -97,7 +97,7 @@ const Conversion = ({
         setDownload(false);
       }
     } catch (error) {
-      toast.error("Unable to convert. Try again later.");
+      toast.error("Connection failed. try again later");
       isLoading(false);
       setDownload(false);
     }
